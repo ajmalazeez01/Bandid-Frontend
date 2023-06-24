@@ -38,7 +38,8 @@ export const blockBandApi=async(id)=>{
     const resData=await AdminApi.patch(`/block-band?id=${id}`)
     return resData
 }
-// export const blockLocationApi = async(data)=>{
-//     const resdata = await AdminApi.post("/block-location",data)
-//     return resdata
-// }
+
+export const blockLocationApi = async(id)=>{
+    const resdata = await AdminApi.patch(`/block-location?id=${id}`)
+    return resdata
+}

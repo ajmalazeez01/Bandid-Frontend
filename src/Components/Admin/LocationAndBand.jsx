@@ -14,15 +14,13 @@ import {
 import InputSwal from "../../Helpers/InputSwal";
 import ConfirmSwal from "../../Helpers/ConfirmSwal";
 
-const LocationAndBand = () => {
+const LocationAndBand = (e) => {
   const [updated, setUpdated] = useState(false);
   const [band, setBand] = useState([]);
   const [location, setLocation] = useState([]);
   
   useEffect(() => {
     getLocationAndBandApi().then(({ data }) => {
-      console.log(data);
-
       if (data) {
         setLocation(data.location);
         setBand(data.band);
@@ -140,21 +138,24 @@ const LocationAndBand = () => {
     });
   };
 
-  // const blockLocation = (id) => {
-  //   ConfirmSwal(blockLocationApi, id).then(() => {
-  //     setUpdated(() => !updated);
-  //   });
-  // };
-
-  
 
   const blockBand = (id) => {
-    console.log('block band');
-    console.log(id);
+    console.log(id);    
     ConfirmSwal(blockBandApi,id).then(() => {
       setUpdated(() => !updated);
     });
   };
+
+  const blockLocation = (id) => {
+    console.log(id);    
+    ConfirmSwal(blockLocationApi,id).then(() => {
+      setUpdated(() => !updated);
+    });
+  };
+
+
+  
+  
   
 
   return (
@@ -296,10 +297,28 @@ const LocationAndBand = () => {
                       </svg>
                       </td>
                       <td class="text-gray-900 text-lg  dark:text-green-400 ml-2 px-6">
-                        Active
+                      {value.status ? (
+                        <p className="text-green-700">Active</p>
+                      ) : (
+                        <p className="text-red-700">Blocked</p>
+                      )}
                       </td>
                       <td class="text-gray-900 text-lg  dark:text-blue-400 ml-2 px-6">
-                        Block
+                      {value.status ? (
+                        <p
+                          onClick={() => blockLocation(value._id)}
+                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                        >
+                          Block
+                        </p>
+                      ) : (
+                        <p
+                          onClick={() => blockLocation(value._id)}
+                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                        >
+                          Un-Block
+                        </p>
+                      )}
                       </td>
                     </tr>
                   );

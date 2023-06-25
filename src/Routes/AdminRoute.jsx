@@ -32,7 +32,7 @@ const AdminRoute = () => {
                 </Route>
 
                 
-            </Routes>
+           </Routes>
         
     </div>
   )

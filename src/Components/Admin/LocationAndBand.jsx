@@ -61,7 +61,9 @@ const LocationAndBand = (e) => {
           } else {
             Swal.showValidationMessage("This location is already added");
           }
-        });
+        }).catch((error)=>{
+          Swal.showValidationMessage("Oopz! you are not enter the location");
+        })
       },
     });
   };
@@ -97,6 +99,8 @@ const LocationAndBand = (e) => {
             }else{
               Swal.showValidationMessage("This band is already added");
             }
+          }).catch((error)=>{
+            Swal.showValidationMessage("Oopz! you are not enter the band");
           })
         
       },
@@ -160,7 +164,7 @@ const LocationAndBand = (e) => {
 
   return (
     <div className="bg-yellow-100 w-full h-full overflow-x-auto">
-      <h1 className="flex-col sm:flex-row font-semibold text-3xl text-center">
+      <h1 className="flex-col sm:flex-row font-bold text-3xl py-2 pl-3">
         Band and Location Manage
       </h1>
 

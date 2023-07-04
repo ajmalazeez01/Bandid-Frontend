@@ -79,7 +79,7 @@ const LoginForm = () => {
     <div className='h-full hidden sm:block'>
       <img className='h-full rounded-l-xl w-[30rem]' src="/Images/istockphoto-1065477850-612x612.jpg" alt="sadh" />
     </div>
-    <div className=' bg-yellow-100 h-full rounded-r-xl'>
+    <div className=' bg-yellow-200 h-full rounded-r-xl'>
       <div>
       <h1 className='font-bold text-3xl px-10 mt-20'>Admin Login</h1>
       </div>

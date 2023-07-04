@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import ProtectedRoute from '../Helpers/ProtectedRoute'
 import BandLayouts from '../Layoutes/BandLayouts'
 import Signup from '../Pages/BandPortal/Signup'
 import LoginForm from '../Pages/BandPortal/Login'
@@ -16,9 +17,9 @@ const BandRoute = () => {
                 <Route path = "/signup" element = {<Signup/>} />
                 <Route path = "/login" element = {<LoginForm/>} />
 
-                {/* <Route
-                element={<ProtectedRoute type={"admin"} redirect={"/admin/login"} />}
-                > */}
+                <Route
+                element={<ProtectedRoute type={"vendor"} redirect={"/band/login"} />}
+                >
 
                 <Route path = "/" element = {<BandLayouts/>}>
                 <Route path = "dashboard" element = {<Dashboards/>} />
@@ -27,7 +28,7 @@ const BandRoute = () => {
                 <Route path = "bandReview" element = {<BandReviews/>} />
                 </Route>
 
-                {/* </Route> */}
+                </Route>
 
                 
            </Routes>

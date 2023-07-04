@@ -7,8 +7,7 @@ const BandLayouts = () => {
 
   const [Toggle, setToggle] = useState(true);
   const handleLogout = () => {
-    console.log("haiii");
-    localStorage.removeItem("admin");
+    localStorage.removeItem("vendor");
     navigate("/band/login");
   };
 

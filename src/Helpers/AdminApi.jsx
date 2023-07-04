@@ -34,7 +34,6 @@ export const editLocationApi=async(data)=>{
     return resData
 }
 export const blockBandApi=async(id)=>{
-    console.log('api');
     const resData=await AdminApi.patch(`/block-band?id=${id}`)
     return resData
 }

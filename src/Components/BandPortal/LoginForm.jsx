@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify'
 import { BandLoginApi } from '../../Helpers/BandApi';
-// import BandLoginValidation from '../../Validation/BandLoginValidation';
+import bandLoginValidation from '../../Validation/BandLoginValidation';
+import { setVendorToken } from '../../Authentication/StoreToken';
 
-const LoginForm = () => {
+const LoginForm = () => { 
 
   const navigate = useNavigate()
 
@@ -13,17 +14,16 @@ const LoginForm = () => {
     password : "",
   });
 
-  const handleClick = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault()
-    // BandLoginValidation
+    bandLoginValidation
       .validate(data)
       .then((validatedData) => {
         BandLoginApi(validatedData).then((response) => {
-          // console.log(response)
           if (response.data.success) {
-            // const token = response.data.token;
-            // setAdminToken(token);
-            // console.log(token+'haiii');
+            const token = response.data.token;
+            setVendorToken(token);
             navigate("/band/dashboard");
           } 
           else if (!response.data.success) {
@@ -70,14 +70,14 @@ const LoginForm = () => {
   <div className='w-screen h-screen bg-slate-900 flex py-20'>
   <div className='flex flex-col sm:flex-row items-center mx-auto h-96 my-auto'>
     <div className='h-full hidden sm:block'>
-      <img className=' h-full rounded-l-xl  w-[30rem]' src="/Images/istockphoto-165083704-612x612.jpg" alt="sadh" />
+      <img className=' h-full rounded-l-xl  w-[30rem]' src="/Images/istockphoto-177245299-612x612.jpg" alt="sadh" />
     </div>
-    <div className='bg-yellow-100 h-full rounded-r-xl'>
+    <div className='bg-yellow-200 h-full rounded-r-xl'>
       <div>
       <h1 className='font-bold text-3xl px-10 mt-20'>Band Login</h1>
       </div>
       <ToastContainer/> 
-      <form>
+      <form onSubmit={handleSubmit}>
       <div className="flex flex-col items-center md:items-start px-10 ">
             <input
               className={` border-b focus:border-slate-400  mt-7 rounded border-0 p-1`}
@@ -94,11 +94,11 @@ const LoginForm = () => {
               value={data.password}
               onChange={(e)=>setData({...data,password:e.target.value})}
             />
-            <button className="text-white w-full p-1  mt-9 rounded-md bg-gray-800 hover:bg-black" onClick={handleClick}>
+            <button className="text-white w-full p-1  mt-9 rounded-md bg-gray-800 hover:bg-black">
             Login
           </button>
           <NavLink to="/band/signup" >
-          <p className='font-semibold py-2'>SignUp here</p>
+          <p className='font-semibold py-2'>Signup here</p>
           </NavLink>
           </div>
           </form>

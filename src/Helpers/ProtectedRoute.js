@@ -12,15 +12,13 @@ function ProtectedRoute({type,redirect,api}) {
     const navigate=useNavigate()
     useEffect(()=>{
         if(token){
-            AdminApi.get(`${type}/jwt`,{
+            AdminApi.get(`admin/jwt`,{
                 headers:{
                     Authorization:`Bearer ${token}`,
                 },
                 params:{role:type}
             }).then((res)=>{
-                console.log(res)
                 if(res.data.status){
-                    console.log(res.data.status);
                     setAuth(true)
                 }else{
                     setAuth(false)

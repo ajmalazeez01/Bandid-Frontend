@@ -4,10 +4,14 @@ import { ToastContainer, toast } from 'react-toastify'
 import { BandLoginApi } from '../../Helpers/BandApi';
 import bandLoginValidation from '../../Validation/BandLoginValidation';
 import { setVendorToken } from '../../Authentication/StoreToken';
+import { useDispatch } from 'react-redux';
+import { addBandId } from '../../Store/Slices/BandIdSlice';
+
 
 const LoginForm = () => { 
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [data, setData] = useState({
     email : "",
@@ -24,6 +28,14 @@ const LoginForm = () => {
           if (response.data.success) {
             const token = response.data.token;
             setVendorToken(token);
+             dispatch(
+      addBandId({
+        email: response.data.email,
+        location: response.data.location,
+      })
+    );
+            // dispatch(addBandId({location:response.data.location}));
+            console.log(response.data);
             navigate("/band/dashboard");
           } 
           else if (!response.data.success) {

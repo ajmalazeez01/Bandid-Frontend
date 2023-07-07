@@ -5,12 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'tailwindcss/tailwind.css';
 import 'tailwindcss/tailwind.css';
+import { Provider } from 'react-redux';
+import Store from './Store/Store';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store={Store}>
     <App />
+    </Provider>
   </React.StrictMode>
 );
 

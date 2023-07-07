@@ -10,7 +10,7 @@ function App() {
         <Routes>
           <Route path = "/admin/*" element = {<AdminRoute/>}   />
           <Route path = "/band/*" element = {<BandRoute/>}   />
-          <Route path = "/*" element = {<UserRoute/>}   />
+          <Route path = "/user/*" element = {<UserRoute/>}   />
         </Routes>
       </Router>
     </div>

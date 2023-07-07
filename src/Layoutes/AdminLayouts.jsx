@@ -24,7 +24,7 @@ const AdminLayouts = () => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
             onClick={() => setToggle(!Toggle)}
             className={`${
@@ -32,8 +32,8 @@ const AdminLayouts = () => {
             } w-6 h-6 text-white bg-black rounded-full cursor-pointer absolute -end-2 top-2`}
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
@@ -48,8 +48,8 @@ const AdminLayouts = () => {
             onClick={() => setToggle(!Toggle)}
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
             ></path>
           </svg> */}
@@ -161,13 +161,13 @@ const AdminLayouts = () => {
                 className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
                 />
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
                 />
               </svg>

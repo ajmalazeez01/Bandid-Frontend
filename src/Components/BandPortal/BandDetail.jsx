@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from 'react-redux';
 import { BandDetailsApi, categoryApi, fieldApi } from "../../Helpers/BandApi";
 import Swal from "sweetalert2";
 import BandDetailvalidation from "../../Validation/BandDetailValidation";
 
 const BandDetail = () => {
+  const bandemail = useSelector(state => state.band.email);
+  const bandlocation = useSelector(state => state.band.location);
   const [updated, setUpdated] = useState(false);
   const [category, setCategory] = useState([]);
   const [detail, setDetail] = useState({
-    email: "",
+    email: bandemail,
     category: "",
     name: "",
     mobile: "",
     website: "",
-    location: "",
+    location: bandlocation,
     description: "",
     service: "",
-    file: "",
+    file:"",
   });
+  console.log(detail);
 
   useEffect(() => {
     categoryApi().then((res) => {
@@ -90,7 +94,7 @@ const BandDetail = () => {
       <ToastContainer />
       <form onSubmit={handleSubmit}>
         <div className="flex border-black border justify-center rounded-lg">
-          <div className="grid grid-cols-2  w-4/5 h-full ">
+          <div className="grid grid-cols-2  w-4/5 h-full">
             <div>
               <label className="block mb-2 pl-1 text-sm font-medium text-gray-900 dark:text-black">
                 Email
@@ -98,11 +102,12 @@ const BandDetail = () => {
               <input
                 className="appearance-none block w-full dark:bg-gray-700 text-white border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
                 type="email"
-                placeholder="Email"
+                // placeholder={`Email : ${bandemail}`}
                 value={detail.email}
                 onChange={(e) =>
                   setDetail({ ...detail, email: e.target.value })
                 }
+                readOnly
               />
             </div>
             <div>
@@ -110,7 +115,7 @@ const BandDetail = () => {
                 Mobile
               </label>
               <input
-                className="ml-7 appearance-none block w-full dark:bg-gray-700 text-white border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
+                className=" ml-7 appearance-none block w-full dark:bg-gray-700 text-white border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
                 type="mobile"
                 placeholder="Mobile"
                 value={detail.mobile}
@@ -134,7 +139,7 @@ const BandDetail = () => {
                   Select a Category
                 </option>
                 {category.map((category) => (
-                  <option key={category._id} value={category._id}>
+                  <option key={category._id} value={category.name}>
                     {category.name}
                   </option>
                 ))}
@@ -175,8 +180,9 @@ const BandDetail = () => {
               <input
                 className="ml-7 appearance-none block w-full dark:bg-gray-700 text-white border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
                 type="location"
-                placeholder="Location"
+                // placeholder={`Location : `}
                 value={detail.location}
+                readOnly
                 onChange={(e) =>
                   setDetail({ ...detail, location: e.target.value })
                 }
@@ -184,7 +190,6 @@ const BandDetail = () => {
             </div>
             <div>
               <label
-                for="last_name"
                 className="block mb-2 pl-1 text-sm font-medium text-gray-900 dark:text-black"
               >
                 Description
@@ -230,7 +235,6 @@ const BandDetail = () => {
 
             <div>
               <label
-                for="last_name"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
               >
                 Upload Image
@@ -238,6 +242,7 @@ const BandDetail = () => {
               <input
                 className="appearance-none block w-full dark:bg-gray-700 text-white border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
                 type="file"
+                multiple
                 placeholder="Image"
                 value={detail.file}
                 onChange={(e) => setDetail({ ...detail, file: e.target.value })}

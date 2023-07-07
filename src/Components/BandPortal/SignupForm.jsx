@@ -20,7 +20,7 @@ const SignupForm = () => {
     confirmPassword : "",
   });
 
-  // console.log(data);
+  console.log(data);
  
   useEffect(() => {
     allLocationApi().then((res) => {
@@ -121,7 +121,7 @@ const SignupForm = () => {
                   className={` border-b focus:border-slate-400  mt-4 rounded border-0 p-1`}
                   type="number"
                   placeholder="Mobile"
-                  name='mobile'
+                  name='number'
                   value = {data.mobile}
                   onChange={(e)=>setData({...data,mobile:e.target.value})}
                 />
@@ -132,14 +132,18 @@ const SignupForm = () => {
               onChange={(e)=>setData({...data,location:e.target.value})}
               className=" border-b focus:outline-none border-slate-400 mt-2"
               >
+              <option value="">Select Location</option>
               {allLocation.map((location) => {
                 return (
-                  <option key={location._id} value={location._id}>
+                  
+                  <option key={location._id} value={location.name}>
                     {location.name}
                   </option>
                 );
               })}
             </select>
+
+
                 <input
                   className=" border-b focus:border-slate-400  mt-4 rounded p-1"
                   type="password"

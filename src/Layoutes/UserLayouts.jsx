@@ -1,112 +1,247 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { categoryApi, userFetchApi } from "../Helpers/UserApi";
+import { useSelector } from "react-redux";
 
 const UserLayouts = () => {
+  const navigate = useNavigate();
+
+  const userName = useSelector((state) => state.user.name);
+
+  const [Toggle, setToggle] = useState(false);
+  const [Toggles, setToggles] = useState(false);
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    categoryApi().then((res) => {
+      setCategory(res.data.message);
+    });
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/user/login");
+  };
+
   return (
     <div>
-      <div className="container-fluid">
-        {/* <div
-        className=""
-        style={{
-          position: "fixed",
-          top: "0",
-          left: "0",
-          height: "100%",
-          width: "100%",
-          backgroundImage: "url(./image/homeBackground.png)",
-          backgroundSize: "cover",
-          zIndex: "-1",
-        }}
-      ></div> */}
-       <nav className="w-full h-16 bg-black">
-  <div className="flex items-center py-3 pl-3">
-    <img className="w-12 mr-2" src="/Images/logostar.png" alt="" />
-    <div>
-      <h1 className="text-white text-2xl font-bold">Bandid</h1>
-    </div>
-    <div className="flex mx-auto text-white gap-10">
-      <label
-        htmlFor="default-search"
-        className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-      >
-        Search
-      </label>
-      <form className="flex items-center">
-        <label htmlFor="simple-search" className="sr-only">
-          Search
-        </label>
-        <div className="relative w-full">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
+      <div className="container-fluid bg-black">
+        <nav className="w-full h-16 bg-black">
+          <div className="flex items-center py-3 pl-3">
+            <img className="w-12 mr-2" src="/Images/logostar.png" alt="" />
+            <div>
+              <h1 className="text-white text-2xl font-bold">Bandid</h1>
+            </div>
+            <div className="flex mx-auto text-white gap-10">
+              <label
+                htmlFor="default-search"
+                className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+              >
+                Search
+              </label>
+              <form className="flex items-center">
+                <label htmlFor="simple-search" className="sr-only">
+                  Search
+                </label>
+                <div className="relative w-full">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    id="simple-search"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Search band name..."
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="p-2.5 ml-2 text-sm font-medium text-white rounded-lg border bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 border-pink-400 dark:focus:ring-blue-80"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                    />
+                  </svg>
+                  <span className="sr-only">Search</span>
+                </button>
+              </form>
+
+              <div class="relative inline-block text-left">
+                <div>
+                  <button
+                    class="hidden md:block text-white text-lg font-bold pt-1 font-serif "
+                    onClick={() => setToggle(!Toggle)}
+                  >
+                    Category
+                  </button>
+                </div>
+
+                {Toggle && (
+                  <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div class="py-1" role="none">
+                      <NavLink to="  ">
+                        {category.map((category) => (
+                          <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-8 h-8 text-rose-500 my-1"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+                              />
+                            </svg>
+                            <option
+                              className="font-serif"
+                              key={category._id}
+                              value={category.name}
+                            >
+                              <h1> {category.category} </h1>
+                            </option>
+                          </span>
+                        ))}
+                      </NavLink>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div class="relative inline-block text-left">
+                <div>
+                  <button
+                    class="hidden md:block text-white text-lg font-bold pt-1 font-serif"
+                    onClick={() => setToggles(!Toggles)}
+                  >
+                    Join Our Community
+                  </button>
+                </div>
+
+                {Toggles && (
+                  <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div class="py-1 rounded" role="none">
+                      {/* <NavLink to="profile">
+                        <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-8 h-8 text-rose-500 my-1"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                            />
+                          </svg>
+
+                          <h1 className="font-serif">Profile</h1>
+                        </span>
+                      </NavLink> */}
+                      <NavLink to="login">
+                        <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-8 h-8 text-rose-500 my-1"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                            />
+                          </svg>
+
+                          <h1 className="font-serif">Login</h1>
+                        </span>
+                      </NavLink>
+                      <NavLink to="signup">
+                        <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-8 h-8 text-rose-500 my-1"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                            />
+                          </svg>
+
+                          <h1 className="font-serif">SignIn</h1>
+                        </span>
+                      </NavLink>
+                      <NavLink to="login">
+                        <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-8 h-8 text-rose-500 my-1"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                            />
+                          </svg>
+
+                          <h1 className="font-serif" onClick={handleLogout}>
+                            Sign Out
+                          </h1>
+                        </span>
+                      </NavLink>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <button class="hidden md:block text-white text-lg border-2 rounded-xl font-bold pt-1 font-serif mr-14">
+              {userName}
+            </button>
           </div>
-          <input
-            type="text"
-            id="simple-search"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search band name..."
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="p-2.5 ml-2 text-sm font-medium text-white rounded-lg border bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 border-pink-400 dark:focus:ring-blue-80"
-        >
-          <svg
-            className="w-4 h-4"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 20 20"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-            />
-          </svg>
-          <span className="sr-only">Search</span>
-        </button>
-      </form>
-      <h1 className="hidden md:block text-white text-lg font-bold pt-1">
-        Category
-      </h1>
-      <h1 className="hidden md:block text-white text-lg font-bold pt-1">
-        Join our community
-      </h1>
-      <div className="md:hidden">
-        <svg
-          className="w-6 h-6 text-white cursor-pointer"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16m-7 6h7"
-          />
-        </svg>
-      </div>
-    </div>
-  </div>
-</nav>
+        </nav>
 
         <Outlet />
         <footer className="bg-gray-700 text-white">

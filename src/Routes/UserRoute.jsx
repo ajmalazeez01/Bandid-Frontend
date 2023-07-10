@@ -1,9 +1,10 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import ProtectedRoute from '../Helpers/ProtectedRoute'
 import UserLayouts from '../Layoutes/UserLayouts'
 import Signup from '../Pages/User/Signup'
-import Loginform from '../Components/Users/Loginform'
 import HomePages from '../Pages/User/HomePages'
+import LoginForm from '../Pages/User/Login'
 
 const UserRoute = () => {
   return (
@@ -12,18 +13,17 @@ const UserRoute = () => {
       <Routes>
 
                 <Route path = "/signup" element = {<Signup/>} />
-                <Route path = "/login" element = {<Loginform/>} />
+                <Route path = "/login" element = {<LoginForm/>} />
 
-                {/* <Route
-                element={<ProtectedRoute type={"vendor"} redirect={"/band/login"} />}
-                > */}
+                <Route
+                element={<ProtectedRoute type={"user"} redirect={"/user/login"} />}
+                >
 
                 <Route path = "/" element = {<UserLayouts/>}>
                 <Route path = "/home" element = {<HomePages/>} />
-                
                 </Route>
 
-                {/* </Route> */}
+                </Route>
 
                 
       </Routes>

@@ -1,6 +1,7 @@
 import BandApi from "../Config/BandBaseApi"
 
 
+
 const token = localStorage.getItem('vendor');
 const getToken = {
   headers: {
@@ -11,6 +12,11 @@ const getToken = {
   },
 };
 
+
+
+
+// console.log(getToken)
+// console.log(token);
 
 export const allLocationApi=(data)=>{
     const resData= BandApi.get("/all-location",data)
@@ -28,15 +34,11 @@ export const BandLoginApi = (data)=>{
     const resdata = BandApi.post("/login",data)
     return resdata
 }
-export const BandDetailsApi = (data,config)=>{
-    const resdata = BandApi.post("/band-detail",getToken,data)
+export const BandDetailsApi = (data)=>{
+    const resdata = BandApi.post("/band-detail",data,getToken)
     return resdata
 }
-export const GetBandDetailsApi = (data,config)=>{
-  const resdata = BandApi.post(`/band-detail/${data}`,getToken,data)
-  return resdata
-}
 export const categoryApi = (data)=>{
-    const resdata = BandApi.get("/category",getToken,data)
+    const resdata = BandApi.get("/category",data)
     return resdata
 }

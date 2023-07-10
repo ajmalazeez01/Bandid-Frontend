@@ -11,14 +11,10 @@ const BandIdSlice=createSlice({
             state.email=action.payload.email
             state.location=action.payload.location
         },
-        removeBandId(state){
-            state.email = null
-            state.location = null
-        }
     }
        
 })
 // console.log(BandIdSlice)
 
-export const {addBandId,removeBandId}=BandIdSlice.actions
+export const {addBandId}=BandIdSlice.actions
 export default BandIdSlice.reducer;

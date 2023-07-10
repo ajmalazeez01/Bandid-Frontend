@@ -4,3 +4,6 @@ export const setAdminToken = (token) =>{
 export const setVendorToken = (token) =>{
     localStorage.setItem('vendor',token)
 }
+export const setUserToken = (token) =>{
+    localStorage.setItem('user',token)
+}

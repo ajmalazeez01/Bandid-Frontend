@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { BandDetailsApi, categoryApi, fieldApi } from "../../Helpers/BandApi";
 import Swal from "sweetalert2";
 import BandDetailvalidation from "../../Validation/BandDetailValidation";
-
 const BandDetail = () => {
   const bandemail = useSelector(state => state.band.email);
   const bandlocation = useSelector(state => state.band.location);
@@ -21,11 +20,12 @@ const BandDetail = () => {
     service: "",
     file:"",
   });
-  console.log(detail);
+  // console.log(detail);
 
   useEffect(() => {
     categoryApi().then((res) => {
       setCategory(res.data.message);
+      // console.log(res.data.message);
     });
   }, []);
 
@@ -33,8 +33,8 @@ const BandDetail = () => {
     e.preventDefault();
     BandDetailvalidation.validate(detail)
       .then((validatedData) => {
+        console.log(validatedData);
         BandDetailsApi(validatedData).then((response) => {
-          console.log(response);
           if (response.data.success) {
             Swal.fire({
               position: "center",
@@ -84,7 +84,7 @@ const BandDetail = () => {
           theme: "dark",
         });
       });
-  };
+  }
 
   return (
     <div className="bg-yellow-100 w-full h-full">
@@ -242,7 +242,7 @@ const BandDetail = () => {
               <input
                 className="appearance-none block w-full dark:bg-gray-700 text-white border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
                 type="file"
-                multiple
+                // multiple
                 placeholder="Image"
                 value={detail.file}
                 onChange={(e) => setDetail({ ...detail, file: e.target.value })}

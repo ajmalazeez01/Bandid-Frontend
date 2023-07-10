@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 const AdminLayouts = () => {
+  
   const navigate = useNavigate();
 
   const [Toggle, setToggle] = useState(true);
+
   const handleLogout = () => {
-    console.log("haiii");
     localStorage.removeItem("admin");
     navigate("/admin/login");
   };

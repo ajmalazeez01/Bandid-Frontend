@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const bandLoginValidation = Yup.object().shape({
+const UserLoginValidations = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -13,4 +13,4 @@ const bandLoginValidation = Yup.object().shape({
     ),
 });
 
-export default bandLoginValidation;
+export default UserLoginValidations;

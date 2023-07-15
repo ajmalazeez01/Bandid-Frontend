@@ -3,9 +3,9 @@ import HomePage from '../../Components/Users/HomePage'
 
 const HomePages = () => {
   return (
-    <div>
+    <>
         <HomePage/>
-    </div>
+    </>
   )
 }
 

@@ -5,6 +5,14 @@ import UserLayouts from '../Layoutes/UserLayouts'
 import Signup from '../Pages/User/Signup'
 import HomePages from '../Pages/User/HomePages'
 import LoginForm from '../Pages/User/Login'
+import ListPage from '../Pages/User/ListPage'
+import BandDetail from '../Pages/User/BandDetail'
+import BookingDetail from '../Pages/User/BookingDetail'
+import AddReview from '../Pages/User/AddReview'
+import ProfileBooking from '../Pages/User/ProfileBooking'
+import UserProfiles from '../Pages/User/UserProfiles'
+import PasswordReset from '../Pages/User/PasswordReset'
+
 
 const UserRoute = () => {
   return (
@@ -21,6 +29,14 @@ const UserRoute = () => {
 
                 <Route path = "/" element = {<UserLayouts/>}>
                 <Route path = "/home" element = {<HomePages/>} />
+                <Route path = "/list" element = {<ListPage/>} />
+                <Route path = "/band-detail" element = {<BandDetail/>} />
+                <Route path = "/booking-detail" element = {<BookingDetail/>} />
+                <Route path = "/profile" element = {<UserProfiles/>} />
+                <Route path = "/profile-booking" element = {<ProfileBooking/>} />
+                <Route path = "/review" element = {<AddReview/>} />
+                <Route path = "/reset-password" element = {<PasswordReset/>} />
+
                 </Route>
 
                 </Route>

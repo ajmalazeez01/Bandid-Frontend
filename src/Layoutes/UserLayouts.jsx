@@ -12,11 +12,16 @@ const UserLayouts = () => {
   const [Toggles, setToggles] = useState(false);
   const [category, setCategory] = useState([]);
 
+
+  let id 
   useEffect(() => {
-    categoryApi().then((res) => {
+    categoryApi(id).then((res) => {
+      // console.log(id);
       setCategory(res.data.message);
+      // console.log(res.data.message);
     });
   }, []);
+  
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -29,9 +34,11 @@ const UserLayouts = () => {
         <nav className="w-full h-16 bg-black">
           <div className="flex items-center py-3 pl-3">
             <img className="w-12 mr-2" src="/Images/logostar.png" alt="" />
-            <div>
-              <h1 className="text-white text-2xl font-bold">Bandid</h1>
-            </div>
+            <NavLink to="home">
+              <div>
+                <h1 className="text-white text-2xl font-bold">Bandid</h1>
+              </div>
+            </NavLink>
             <div className="flex mx-auto text-white gap-10">
               <label
                 htmlFor="default-search"
@@ -104,7 +111,7 @@ const UserLayouts = () => {
                 {Toggle && (
                   <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div class="py-1" role="none">
-                      <NavLink to="  ">
+                      <NavLink to={`list/${id}`}>
                         {category.map((category) => (
                           <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
                             <svg
@@ -126,7 +133,7 @@ const UserLayouts = () => {
                               key={category._id}
                               value={category.name}
                             >
-                              <h1> {category.category} </h1>
+                              <h1> {category.name} </h1>
                             </option>
                           </span>
                         ))}

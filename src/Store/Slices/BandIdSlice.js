@@ -5,11 +5,13 @@ const BandIdSlice=createSlice({
     initialState:{
         email : '',
         location : '',
+        id : '',
     },
     reducers:{
         addBandId:(state,action)=>{
             state.email=action.payload.email
             state.location=action.payload.location
+            state.id=action.payload.id
         },
     }
        

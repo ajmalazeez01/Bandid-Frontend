@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { BandDetailsApi, categoryApi, fieldApi } from "../../Helpers/BandApi";
 import Swal from "sweetalert2";
 import BandDetailvalidation from "../../Validation/BandDetailValidation";
+import axios from "axios";
 const BandDetail = () => {
-  const bandemail = useSelector(state => state.band.email);
-  const bandlocation = useSelector(state => state.band.location);
+  const bandemail = useSelector((state) => state.band.email);
+  const bandlocation = useSelector((state) => state.band.location);
+  const id = useSelector((state) => state.band.id);
+
   const [updated, setUpdated] = useState(false);
+  const [image, setImage] = useState(null);
   const [category, setCategory] = useState([]);
   const [detail, setDetail] = useState({
     email: bandemail,
@@ -18,9 +22,9 @@ const BandDetail = () => {
     location: bandlocation,
     description: "",
     service: "",
-    file:"",
+    files: "",
   });
-  // console.log(detail);
+  console.log(image);
 
   useEffect(() => {
     categoryApi().then((res) => {
@@ -29,12 +33,46 @@ const BandDetail = () => {
     });
   }, []);
 
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/;
+    if (!allowedExtensions.exec(file.name)) {
+      toast.error("Format is not supported");
+    } else {
+      setImage(file);
+    }
+  };
+
+  const addImage = async () => {
+    let formData = new FormData();
+    formData.append("photo", image);
+    formData.append("category", detail.category);
+    formData.append("name", detail.name);
+    formData.append("mobile", detail.mobile);
+    formData.append("website", detail.website);
+    formData.append("location", detail.location);
+    formData.append("description", detail.description);
+    formData.append("service", detail.service);
+    await axios
+      .post("/band-detail/" + id, formData)
+      .then((res) => {
+        toast.success(res.data);
+        setImage(null);
+      })
+      .catch((err) => {
+        toast.error(err.response.data);
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // setDetail({ files: [] });
+
     BandDetailvalidation.validate(detail)
       .then((validatedData) => {
         console.log(validatedData);
-        BandDetailsApi(validatedData).then((response) => {
+        BandDetailsApi(id, validatedData).then((response) => {
           if (response.data.success) {
             Swal.fire({
               position: "center",
@@ -45,20 +83,7 @@ const BandDetail = () => {
             }).then(() => {
               setUpdated(() => !updated);
             });
-          }
-          // else if (!response.data.success) {
-          //   toast.error(response.data.message, {
-          //     position: "top-right",
-          //     autoClose: 2000,
-          //     hideProgressBar: false,
-          //     closeOnClick: true,
-          //     pauseOnHover: true,
-          //     draggable: true,
-          //     progress: undefined,
-          //     theme: "dark",
-          //   });
-          // }
-          else {
+          } else {
             toast.error(response.data.message, {
               position: "top-right",
               autoClose: 2000,
@@ -84,7 +109,12 @@ const BandDetail = () => {
           theme: "dark",
         });
       });
-  }
+  };
+
+  // const handleFileChange = (e) => {
+  //   const files = Array.from(e.target.files);
+  //   setDetail({ ...detail, files });
+  // };
 
   return (
     <div className="bg-yellow-100 w-full h-full">
@@ -189,9 +219,7 @@ const BandDetail = () => {
               />
             </div>
             <div>
-              <label
-                className="block mb-2 pl-1 text-sm font-medium text-gray-900 dark:text-black"
-              >
+              <label className="block mb-2 pl-1 text-sm font-medium text-gray-900 dark:text-black">
                 Description
               </label>
               <select
@@ -234,22 +262,21 @@ const BandDetail = () => {
             </div>
 
             <div>
-              <label
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-              >
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
                 Upload Image
               </label>
               <input
-                className="appearance-none block w-full dark:bg-gray-700 text-white border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
                 type="file"
-                // multiple
-                placeholder="Image"
-                value={detail.file}
-                onChange={(e) => setDetail({ ...detail, file: e.target.value })}
+                name="photo"
+                onChange={handleImage}
+                className="appearance-none block w-full dark:bg-gray-700 text-white border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
               />
             </div>
             <div>
-              <button className="my-8  bg-green-500 hover:bg-green-600 text-white font-bold py-3 ml-7 px-5 rounded">
+              <button
+                onClick={addImage}
+                className="my-8  bg-green-500 hover:bg-green-600 text-white font-bold py-3 ml-7 px-5 rounded"
+              >
                 Save
               </button>
             </div>

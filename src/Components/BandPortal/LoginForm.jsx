@@ -29,6 +29,7 @@ const LoginForm = () => {
               addBandId({
                 email: response.data.email,
                 location: response.data.location,
+                id: response.data.id,
               })
             );
             console.log(response.data);

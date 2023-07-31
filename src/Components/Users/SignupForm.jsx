@@ -3,7 +3,8 @@ import { useState } from "react";
 import { UserSignupApi, userOtpApi } from "../../Helpers/UserApi";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 
 const SignupForm = () => {

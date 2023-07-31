@@ -77,7 +77,7 @@ const LoginForm = () => {
 <div className='w-screen h-screen bg-slate-900 flex py-20'>
   <div className='flex flex-col sm:flex-row items-center mx-auto h-96 my-auto'>
     <div className='h-full hidden sm:block'>
-      <img className='h-full rounded-l-xl w-[30rem]' src="/Images/istockphoto-1065477850-612x612.jpg" alt="sadh" />
+      <img className='h-full rounded-l-xl w-[30rem]' src="/Images/istockphoto-1065477850-612x612.jpg" />
     </div>
     <div className=' bg-yellow-200 h-full rounded-r-xl'>
       <div>

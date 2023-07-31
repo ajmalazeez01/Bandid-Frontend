@@ -12,6 +12,7 @@ import AddReview from '../Pages/User/AddReview'
 import ProfileBooking from '../Pages/User/ProfileBooking'
 import UserProfiles from '../Pages/User/UserProfiles'
 import PasswordReset from '../Pages/User/PasswordReset'
+import SlotBooking from '../Pages/User/SlotBooking'
 
 
 const UserRoute = () => {
@@ -22,6 +23,7 @@ const UserRoute = () => {
 
                 <Route path = "/signup" element = {<Signup/>} />
                 <Route path = "/login" element = {<LoginForm/>} />
+                <Route path = "/reset-password" element = {<PasswordReset/>} />
 
                 <Route
                 element={<ProtectedRoute type={"user"} redirect={"/user/login"} />}
@@ -29,13 +31,15 @@ const UserRoute = () => {
 
                 <Route path = "/" element = {<UserLayouts/>}>
                 <Route path = "/home" element = {<HomePages/>} />
-                <Route path = "/list" element = {<ListPage/>} />
-                <Route path = "/band-detail" element = {<BandDetail/>} />
-                <Route path = "/booking-detail" element = {<BookingDetail/>} />
+                <Route path = "/list/:name/" element = {<ListPage/>} />
+                <Route path = "/band-detail/:id" element = {<BandDetail/>} />
+                <Route path = "/slot-booking/:id/:name" element = {<SlotBooking/>} />
+                <Route path = "/booking-detail/:id/:name" element = {<BookingDetail/>} />
+                <Route path = "/review" element = {<AddReview/>} />
                 <Route path = "/profile" element = {<UserProfiles/>} />
                 <Route path = "/profile-booking" element = {<ProfileBooking/>} />
-                <Route path = "/review" element = {<AddReview/>} />
-                <Route path = "/reset-password" element = {<PasswordReset/>} />
+
+               
 
                 </Route>
 

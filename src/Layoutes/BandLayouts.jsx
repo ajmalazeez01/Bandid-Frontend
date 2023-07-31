@@ -13,7 +13,7 @@ const BandLayouts = () => {
 
   return (
     <div>
-    <div className="bg-black w-screen h-screen flex">
+    <div className="bg-black w-screen flex">
       <div
         className={`bg-slate-900 ${
           Toggle ? "w-72" : "w-18"
@@ -43,7 +43,6 @@ const BandLayouts = () => {
           <img
             className= {`w-6 h-5 mt-8 mr-2 duration-300 ${Toggle && 'rotate-[360deg]'} `}
             src="/Images/logostar.png"
-            alt="image"
           />
           {Toggle && (
             <h1 className="text-white text-3xl  mt-6">Bandid</h1>

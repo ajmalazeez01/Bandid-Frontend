@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { categoryApi, userFetchApi } from "../Helpers/UserApi";
+import { categoryApi } from "../Helpers/UserApi";
 import { useSelector } from "react-redux";
 
 const UserLayouts = () => {
@@ -12,16 +12,13 @@ const UserLayouts = () => {
   const [Toggles, setToggles] = useState(false);
   const [category, setCategory] = useState([]);
 
-
-  let id 
   useEffect(() => {
-    categoryApi(id).then((res) => {
+    categoryApi().then((res) => {
       // console.log(id);
       setCategory(res.data.message);
       // console.log(res.data.message);
     });
   }, []);
-  
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -33,7 +30,7 @@ const UserLayouts = () => {
       <div className="container-fluid bg-black">
         <nav className="w-full h-16 bg-black">
           <div className="flex items-center py-3 pl-3">
-            <img className="w-12 mr-2" src="/Images/logostar.png" alt="" />
+            <img className="w-12 mr-2" src="/Images/logostar.png" />
             <NavLink to="home">
               <div>
                 <h1 className="text-white text-2xl font-bold">Bandid</h1>
@@ -98,10 +95,10 @@ const UserLayouts = () => {
                 </button>
               </form>
 
-              <div class="relative inline-block text-left">
+              <div className="relative inline-block text-left">
                 <div>
                   <button
-                    class="hidden md:block text-white text-lg font-bold pt-1 font-serif "
+                    className="hidden md:block text-white text-lg font-bold pt-1 font-serif "
                     onClick={() => setToggle(!Toggle)}
                   >
                     Category
@@ -109,11 +106,14 @@ const UserLayouts = () => {
                 </div>
 
                 {Toggle && (
-                  <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div class="py-1" role="none">
-                      <NavLink to={`list/${id}`}>
-                        {category.map((category) => (
-                          <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                  <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1" role="none">
+                      {category.map((category) => (
+                        <NavLink
+                          to={`list/${category.name}`}
+                          onClick={()=>setToggle(false)}
+                        >
+                          <span className="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -136,17 +136,17 @@ const UserLayouts = () => {
                               <h1> {category.name} </h1>
                             </option>
                           </span>
-                        ))}
-                      </NavLink>
+                        </NavLink>
+                      ))}
                     </div>
                   </div>
                 )}
               </div>
 
-              <div class="relative inline-block text-left">
+              <div className="relative inline-block text-left">
                 <div>
                   <button
-                    class="hidden md:block text-white text-lg font-bold pt-1 font-serif"
+                    className="hidden md:block text-white text-lg font-bold pt-1 font-serif"
                     onClick={() => setToggles(!Toggles)}
                   >
                     Join Our Community
@@ -154,30 +154,10 @@ const UserLayouts = () => {
                 </div>
 
                 {Toggles && (
-                  <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div class="py-1 rounded" role="none">
-                      {/* <NavLink to="profile">
-                        <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-8 h-8 text-rose-500 my-1"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                            />
-                          </svg>
-
-                          <h1 className="font-serif">Profile</h1>
-                        </span>
-                      </NavLink> */}
+                  <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1 rounded" role="none">
                       <NavLink to="login">
-                        <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                        <span className="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -197,7 +177,7 @@ const UserLayouts = () => {
                         </span>
                       </NavLink>
                       <NavLink to="signup">
-                        <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                        <span className="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -217,7 +197,7 @@ const UserLayouts = () => {
                         </span>
                       </NavLink>
                       <NavLink to="login">
-                        <span class="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
+                        <span className="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -244,9 +224,11 @@ const UserLayouts = () => {
               </div>
             </div>
 
-            <button class="hidden md:block text-white text-lg border-2 rounded-xl font-bold pt-1 font-serif mr-14">
-              {userName}
-            </button>
+            <NavLink to="profile">
+              <button className="hidden md:block text-white text-lg border-2 rounded-xl font-bold pt-1 font-serif mr-14">
+                {userName}
+              </button>
+            </NavLink>
           </div>
         </nav>
 
@@ -254,7 +236,7 @@ const UserLayouts = () => {
         <footer className="bg-gray-700 text-white">
           <div className="container mx-auto py-8 flex flex-wrap md:flex-nowrap items-center justify-between">
             <div className="flex items-center">
-              <img className="w-12 mr-2" src="/Images/logostar.png" alt="" />
+              <img className="w-12 mr-2" src="/Images/logostar.png" />
               <div>
                 <h1 className="text-xl font-bold">Bandid</h1>
                 <p className="text-sm">Find Your Band</p>
@@ -281,12 +263,10 @@ const UserLayouts = () => {
                   <img
                     className="w-1/3 h-1/2 md:w-1/4 md:h-3/4 mr-2"
                     src="/Images/new-get-it-on-google-play-png-logo-20.png"
-                    alt="Google Play"
                   />
                   <img
                     className="w-1/3 h-1/2 md:w-1/4 md:h-3/4"
                     src="/Images/new-get-it-on-google-play-png-logo-20.png"
-                    alt="App Store"
                   />
                 </div>
               </div>
@@ -311,16 +291,15 @@ const UserLayouts = () => {
               <div>
                 <h2 className="text-lg font-semibold mb-4">Connect</h2>
                 <div className="flex gap-3">
-                  <img className="h-8" src="/Images/insta.png" alt="image" />
+                  <img className="h-8" src="/Images/insta.png" />
                   <img
                     className="h-8"
                     src="/Images/facebook-logo-icon-file-facebook-icon-svg-wikimedia-commons-4.png"
-                    alt="image"
                   />
                   <img
                     className="h-8"
                     src="/Images/linkedin-in-logo-png-1.png"
-                    alt="image"
+                   
                   />
                 </div>
               </div>

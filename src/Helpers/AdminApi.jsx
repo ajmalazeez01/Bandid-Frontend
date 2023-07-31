@@ -57,6 +57,24 @@ export const getUserApi = async()=>{
     return resdata
 }
 export const blockUserApi=async(id)=>{
-    const resData=await AdminApi.patch(`/block-user?id=${id}`)
+    const resData=await AdminApi.patch(`/block-user/${id}`)
+    return resData
+}
+export const getbandApi = async()=>{
+    const resdata = await AdminApi.get("/bandManage",getToken)
+    return resdata
+}
+export const blockbandApi=async(id)=>{
+    console.log(id);
+    const resData=await AdminApi.patch(`/block-band/${id}`)
+    return resData
+}
+export const getverifyApi = async()=>{
+    const resdata = await AdminApi.get("/band-verify",getToken)
+    return resdata
+}
+export const blockVerifyApi=async(id)=>{
+    console.log(id);
+    const resData=await AdminApi.patch(`/block-verify/${id}`)
     return resData
 }

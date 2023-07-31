@@ -14,7 +14,7 @@ const AdminLayouts = () => {
 
   return (
     <div>
-      <div className="bg-black w-screen h-screen flex">
+      <div className="bg-black w-screen h-full flex">
         <div
           className={`bg-slate-900 ${
             Toggle ? "w-72" : "w-18"

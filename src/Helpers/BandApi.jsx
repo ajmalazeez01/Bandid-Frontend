@@ -1,3 +1,4 @@
+import { Form } from "react-hook-form";
 import BandApi from "../Config/BandBaseApi";
 
 const token = localStorage.getItem("vendor");
@@ -26,12 +27,17 @@ export const BandLoginApi = (data) => {
   const resdata = BandApi.post("/login", data);
   return resdata;
 };
-export const BandDetailsApi = (id, data) => {
-  const resdata = BandApi.post(`/band-detail/${id}`, data);
+export const BandDetailsApi = (email,formData) => {
+  console.log(email);
+  console.log(formData);
+  const resdata = BandApi.post(`/band-detail/${email}`, formData);
   return resdata;
 };
-
 export const categoryApi = () => {
   const resdata = BandApi.get("/category");
   return resdata;
 };
+export const getreviewApi = async()=>{
+  const resdata = await BandApi.get("/band-Review",getToken)
+  return resdata
+}

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BandDetailsApi, categoryApi } from "../../Helpers/BandApi";
 import Swal from "sweetalert2";
 import BandDetailvalidation from "../../Validation/BandDetailValidation";
+import { addBandId } from "../../Store/Slices/BandIdSlice";
 
 const BandDetail = () => {
+  // const dispatch = useDispatch()
   const location = useSelector((state) => state.band.location);
   const email = useSelector((state) => state.band.email);
 
@@ -64,6 +66,11 @@ const BandDetail = () => {
         BandDetailsApi(validatedData.email, formData)
           .then((response) => {
             if (response.data.success) {
+              // dispatch(
+              //   addBandId({
+              //     id: response.data.id,
+              //   })
+              // );
               Swal.fire({
                 position: "center",
                 icon: "success",
@@ -114,13 +121,8 @@ const BandDetail = () => {
       });
   };
 
-  // const handleFileChange = (e) => {
-  //   const files = Array.from(e.target.files);
-  //   setDetail({ ...detail, files });
-  // };
-
   return (
-    <div className="bg-yellow-100 w-full h-full">
+    <div className="bg-yellow-100 w-full h-screen">
       <h1 className="flex-col sm:flex-row font-bold text-3xl py-2 pl-3">
         Band Details
       </h1>

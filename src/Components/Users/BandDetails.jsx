@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
   detailListApi,
   rateListApi,
@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 const MySwal = withReactContent(Swal);
 
 const BandDetails = () => {
+  const { id } = useParams();
   const userEmail = useSelector((state) => state.user.email);
 
   const [rating, setRating] = useState(0);
@@ -26,7 +27,7 @@ const BandDetails = () => {
   useEffect(() => {
     const id = window.location.pathname.split("/").pop();
 
-    reviewListFetchApi().then((response) => {
+    reviewListFetchApi(id).then((response) => {
       // console.log(response.data.message);
       setReview(response.data.message);
     });
@@ -47,7 +48,7 @@ const BandDetails = () => {
   };
 
   const handleVoteSubmit = () => {
-    rateListApi(userEmail, { rate: rating }).then((response) => {
+    rateListApi(userEmail, id, { rate: rating }).then((response) => {
       if (response.data.message) {
         MySwal.fire({
           icon: "success",
@@ -152,7 +153,7 @@ const BandDetails = () => {
                 <h1 className="text-2xl font-semibold font-serif text-white">
                   Feedback
                 </h1>
-                <NavLink to={`/user/review`}>
+                <NavLink to={`/user/review/${id}`}>
                   <button className="text-white text-lg font-serif px-4 py-2 rounded-lg bg-black">
                     Write a Review
                   </button>
@@ -219,6 +220,14 @@ const BandDetails = () => {
               {/* Add other content or components here */}
             </div>
           </div>
+
+          <NavLink to={`/user/message/${id}`}>
+            <div className="fixed bottom-5 right-5">
+              <div className="bg-blue-500 text-white py-2 px-4 rounded-full shadow-lg cursor-pointer transform hover:scale-105 transition duration-300">
+                Chat with us
+              </div>
+            </div>
+          </NavLink>
         </div>
       )}
     </div>

@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { categoryApi } from "../Helpers/UserApi";
-import { useSelector } from "react-redux";
+import { SearchApi, categoryApi } from "../Helpers/UserApi";
+import { useDispatch, useSelector } from "react-redux";
+import { addUserId } from "../Store/Slices/UserIdSlice";
+import HomePage from "../Components/Users/HomePage";
 
 const UserLayouts = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch()
   const userName = useSelector((state) => state.user.name);
 
   const [Toggle, setToggle] = useState(false);
   const [Toggles, setToggles] = useState(false);
   const [category, setCategory] = useState([]);
+  const [search, setSearch] = useState({
+    search: "",
+  });
 
   useEffect(() => {
     categoryApi().then((res) => {
@@ -23,6 +28,14 @@ const UserLayouts = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/user/login");
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    SearchApi(search).then((res) => {
+      console.log(res.data.message);
+      setSearch(res.data.message);
+    });
   };
 
   return (
@@ -68,6 +81,10 @@ const UserLayouts = () => {
                     type="text"
                     id="simple-search"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={search.search}
+                    onChange={(e) =>
+                      setSearch({ ...search, search: e.target.value })
+                    }
                     placeholder="Search band name..."
                     required
                   />
@@ -75,6 +92,7 @@ const UserLayouts = () => {
                 <button
                   type="submit"
                   className="p-2.5 ml-2 text-sm font-medium text-white rounded-lg border bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 border-pink-400 dark:focus:ring-blue-80"
+                  onClick={handleClick}
                 >
                   <svg
                     className="w-4 h-4"
@@ -92,8 +110,10 @@ const UserLayouts = () => {
                     />
                   </svg>
                   <span className="sr-only">Search</span>
+                  
                 </button>
               </form>
+              {/* </NavLink> */}
 
               <div className="relative inline-block text-left">
                 <div>
@@ -111,7 +131,7 @@ const UserLayouts = () => {
                       {category.map((category) => (
                         <NavLink
                           to={`list/${category.name}`}
-                          onClick={()=>setToggle(false)}
+                          onClick={() => setToggle(false)}
                         >
                           <span className="flex items-center pl-2 transform transition-colors font-semibold text-lg duration-200 border-r-4 border-transparent hover:border-indigo-700">
                             <svg
@@ -299,7 +319,6 @@ const UserLayouts = () => {
                   <img
                     className="h-8"
                     src="/Images/linkedin-in-logo-png-1.png"
-                   
                   />
                 </div>
               </div>

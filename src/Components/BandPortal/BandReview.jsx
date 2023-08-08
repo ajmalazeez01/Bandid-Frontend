@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import ConfirmSwal from "../../Helpers/ConfirmSwal";
 import { getreviewApi } from "../../Helpers/BandApi";
+import { NavLink, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const BandReview = () => {
+  // const { id } = useParams()
+  // console.log(id);
+  const userEmail = useSelector((state) => state.band.email);
+
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getreviewApi()
+    getreviewApi(userEmail)
       .then((res) => {
-        console.log(res.data.message);
+        // console.log(res.data.message);
         setReviews(res.data.message);
         setLoading(false);
       })
@@ -32,17 +38,17 @@ const BandReview = () => {
       ) : (
         <div class="grid gap-y-4 md:gap-y-2 ">
           {reviews?.map((review) => (
-            <div class="bg-white rounded-lg w-8/12 mx-auto shadow dark:bg-gray-800 dark:border-gray-700 ">
-              <div class="p-4 sm:p-8 ">
-                <div class="text-gray-700 dark:text-gray-300">
-                  Name: <span class="font-semibold">{review.name}</span>
+            <div class="bg-white border-black rounded-lg w-8/12 mx-auto shadow dark:bg-gray-800 dark:border-gray-700 ">
+              <div class="p-4 sm:p-8 border-black">
+                <div class="text-gray-700 font-bold text-lg dark:text-gray-300">
+                  Name : <span class="font-semibold">{review.name}</span>
                 </div>
-                <div class="text-gray-700 dark:text-gray-300">
-                  Message: <span class="font-semibold">{review.message}</span>
+                <div class="text-gray-700 font-bold text-lg dark:text-gray-300">
+                  Message : <span class="font-semibold">{review.message}</span>
                 </div>
                 <div class="flex justify-between">
-                  <div class="text-gray-700 dark:text-gray-300">
-                    Rating: <span class="font-semibold">{review.rate}</span>
+                  <div class="text-gray-700 font-bold text-lg dark:text-gray-300">
+                    Rating : <span class="font-semibold">{review.rate}</span>
                   </div>
                   <div class="text-gray-700 dark:text-gray-300">
                     Date:
@@ -56,7 +62,16 @@ const BandReview = () => {
           ))}
         </div>
       )}
+
+<NavLink to={`/band/message`}>
+            <div className="fixed bottom-5 right-5">
+              <div className="bg-blue-500 text-white py-2 px-4 rounded-full shadow-lg cursor-pointer transform hover:scale-105 transition duration-300">
+                Chat with us
+              </div>
+            </div>
+          </NavLink>
     </div>
+    
   );
 };
 

@@ -28,6 +28,7 @@ const LoginForm = () => {
             setVendorToken(token);
             dispatch(
               addBandId({
+                // id: response.data.id,
                 email: response.data.email,
                 location: response.data.location,
               })

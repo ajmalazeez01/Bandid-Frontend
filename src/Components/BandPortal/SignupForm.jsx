@@ -20,12 +20,13 @@ const SignupForm = () => {
     confirmPassword : "",
   });
 
-  console.log(data);
  
   useEffect(() => {
     allLocationApi().then((res) => {
       setAllLocation(res.data.location);
-    });
+    }).catch((error)=>{
+      console.log(error);
+    })
   }, []);
 
 

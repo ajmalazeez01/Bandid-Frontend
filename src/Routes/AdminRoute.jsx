@@ -8,7 +8,7 @@ import AdminLayouts from '../Layoutes/AdminLayouts';
 import UserManages from '../Pages/Admin/UserManages';
 import BandManges from '../Pages/Admin/BandManges';
 import BandVerifys from '../Pages/Admin/BandVerifys';
-
+import Error from '../Pages/error';
 
 const AdminRoute = () => {
   return (
@@ -16,6 +16,7 @@ const AdminRoute = () => {
         
             <Routes>
                 <Route path = "/login" element = {<LoginForm/>} />
+                <Route path = "*" element = {<Error/>}   />
 
                 <Route
                 element={<ProtectedRoute type={"admin"} redirect={"/admin/login"} />}

@@ -15,9 +15,11 @@ const ProfileBookings = () => {
   const [details, setDetail] = useState();
   const [cancel, setcancel] = useState();
   const [loading, setLoading] = useState(true);
+  const [sortBy, setSortBy] = useState("status"); // Change "fromdate" to the desired default sorting field
+  const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
-    profileDetailFetchApi(userEmail)
+    profileDetailFetchApi(userEmail, sortBy, sortOrder)
       .then((res) => {
         setDetail(res.data.message);
         setLoading(false);
@@ -26,17 +28,16 @@ const ProfileBookings = () => {
         console.log("catch");
         console.log(error);
       });
-  }, []);
+  }, [cancel, userEmail, sortBy, sortOrder]);
 
-  // const handleCancelBooking = (bookingId) => {
-  //   cancelApi(bookingId)
-  //     .then((res) => {
-  //       setcancel(res.data.message);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const handleSort = (field) => {
+    if (sortBy === field) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortBy(field);
+      setSortOrder("asc");
+    }
+  };
 
   const cancelBook = (id) => {
     ConfirmSwal(cancelApi, id).then(() => {
@@ -62,7 +63,7 @@ const ProfileBookings = () => {
           </div>
 
           <div className="flex">
-            <div className="w-64 h-64 bg-gray-900 my-32 rounded-lg border-2 ml-64 ">
+            <div className="w-64 h-72 bg-gray-900 my-9 rounded-lg border-2 ml-10 ">
               <NavLink to="/user/profile">
                 <span className="flex hover:bg-black">
                   <svg
@@ -156,58 +157,75 @@ const ProfileBookings = () => {
                   </h1>
                 </span>
               </NavLink>
+
+             
             </div>
 
-            <div className="w-[40rem] my-32 mb-6 bg-gray-900 rounded-lg ml-4 border-2">
-              {details?.map((detail) => {
-                return (
+            <div className="container mx-auto my-8 ">
+
+
+            <th
+  className="bg-gray-900 text-white font-serif dark:text-white rounded-lg py-2 h-14 w-56 text-lg cursor-pointer"
+  onClick={() => handleSort("status")}
+>
+  <div className="flex items-center justify-center">
+    <h5 className="mr-2">Sort by:</h5>
+    <h5 className="font-bold">Status</h5>
+    
+  </div>
+</th>
+
+
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ml-6 mr-10 ">
+                {details?.map((detail) => (
                   <div
-                    className="flex w-[38rem] ml-4 mb-3 mt-3 h-52 pt-2 pl-2 gap-2 bg-yellow-100 rounded-lg"
+                    className="bg-white rounded-lg shadow-md p-6 "
                     key={detail._id}
                   >
-                    <div className="flex flex-col">
-                      <h1 className="font-serif text-xl mb-2">
-                        Booking ID: {detail._id}
-                      </h1>
-                      <h1 className="font-serif mb-2">
-                        Band name: {detail.band}
-                      </h1>
-                      <h1 className="font-serif mb-2">
-                        people cound: {detail.peoplecount}
-                      </h1>
-                      <h1 className="font-serif mb-2">
-                        Total Amount: {detail.advprice}
-                      </h1>
-                      <h1 className="font-serif mb-2">
-                        Subtotal: {detail.advprice}
-                      </h1>
-                    </div>
+                    <h1 className="font-serif text-2xl mb-2">
+                      Booking ID: {detail._id}
+                    </h1>
+                    <h2 className="font-serif text-lg mb-2">
+                      Band name: {detail.band}
+                    </h2>
+                    <p className="font-serif text-gray-600 mb-2">
+                      People count: {detail.peoplecount}
+                    </p>
+                    <p className="font-serif text-gray-600 mb-2">
+                      Address: {detail.address}
+                    </p>
+                    <p className="font-serif text-gray-600 mb-2">
+                      Advance Amount: ${detail.advprice}
+                    </p>
+                    <p className="font-serif text-gray-600 mb-2">
+                      Subtotal: ${detail.advprice}
+                    </p>
+                    <p className="font-serif text-gray-600 mb-2">
+                      Date: {detail.fromdate}
+                    </p>
 
-                    <div className="flex flex-col justify-between">
-                      <div>
-                        {detail.status ? (
-                          <p onClick={() => cancelBook(detail._id)}>
-                            <button class="bg-green-500 my-2 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                              cancel
-                            </button>
-                          </p>
-                        ) : (
-                          <p onClick={() => cancelBook(detail._id)}>
-                            <button class="bg-red-500 my-2 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                              cancelled
-                            </button>
-                          </p>
-                        )}
-                      </div>
-                      <div className="my-4">
-                        <h1 className="font-serif text-sm">
-                          Date: {detail.fromdate}
-                        </h1>
-                      </div>
+                    <div className="flex justify-between items-center mt-4">
+                      {detail.status ? (
+                        <button
+                          onClick={() => cancelBook(detail._id)}
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        >
+                          Cancel
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => cancelBook(detail._id)}
+                          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded cursor-not-allowed"
+                          disabled
+                        >
+                          Cancelled
+                        </button>
+                      )}
                     </div>
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </div>
         </div>

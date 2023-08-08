@@ -10,17 +10,22 @@ const getToken = {
   },
 };
 
-export const categoryApi = (data) => {
-  const resdata = UserApi.get("/category", data);
+export const categoryApi = () => {
+  const resdata = UserApi.get("/category",getToken);
+  return resdata;
+};
+export const SearchApi = (data) => {
+  console.log(data);
+  const resdata = UserApi.post("/search",data);
   return resdata;
 };
 export const categoryListApi = (location) => {
-  const resdata = UserApi.get(`/category-list/${location}`);
+  const resdata = UserApi.get(`/category-list/${location}`,getToken);
   return resdata;
 };
 export const categoryDetailApi = (name) => {
   console.log(name);
-  const resdata = UserApi.get(`/band-detail/${name}`);
+  const resdata = UserApi.get(`/band-detail/${name}`,getToken);
   return resdata;
 };
 export const UserSignupApi = (data) => {
@@ -41,44 +46,40 @@ export const bandDetailApi = () => {
 };
 export const checkLocationApi = (location,band) => {
   console.log(location,band);
-  const resdata = UserApi.get(`/check-location?location=${location}&band=${band}`);
+  const resdata = UserApi.get(`/check-location?location=${location}&band=${band}`,getToken);
   return resdata;
 };
 export const profileDetailsApi = (email,formData) => {
   const resdata = UserApi.post(`/profile/${email}`, formData);
   return resdata;
 };
-export const profileDetailFetchApi = (email) => {
-  const resdata = UserApi.get(`/profile-detailfetch/${email}`);
+export const profileDetailFetchApi = (email,sortBy,sortOrder) => {
+  const resdata = UserApi.get(`/profile-detailfetch?email=${email}&sortBy=${sortBy}&sortOrder=${sortOrder}`,getToken);
   return resdata;
 };
 
 export const detailListApi = (id) => {
-  const resdata = UserApi.get(`/detail-list/${id}`);
+  const resdata = UserApi.get(`/detail-list/${id}`,getToken);
   return resdata;
 };
-export const rateListApi = (email,data) => {
-  const resdata = UserApi.post(`/rate-list/${email}`,data);
+export const rateListApi = (email,id,data) => {
+  const resdata = UserApi.post(`/rate-list?email=${email}&id=${id}`,data);
   return resdata;
 };
-export const reviewListFetchApi = () => {
-  const resdata = UserApi.get("/review-fetch");
+export const reviewListFetchApi = (id) => {
+  const resdata = UserApi.get(`/review-fetch/${id}`,getToken);
   return resdata;
 };
 export const detailFetchApi = (email) => {
-  const resdata = UserApi.get(`/detail-fetch/${email}`);
+  const resdata = UserApi.get(`/detail-fetch/${email}`,getToken);
   return resdata;
 };
 export const bookingApi = (id,data) => {
   const resData = UserApi.post(`/booking-detail?fromdate=${data.fromdate}&todate=${data.todate}&id=${id}`,data);
   return resData;
 };
-// export const bookingFetchApi = (data) => {
-//   const resdata = UserApi.get(`/booking-fetch?fromdate=${data.fromdate}&todate=${data.todate}&email=${data.email}`);
-//   return resdata;
-// };
 export const bookingDetailFetchApi = (email) => {
-  const resdata = UserApi.get(`/booking-detailfetch/${email}`);
+  const resdata = UserApi.get(`/booking-detailfetch/${email}`,getToken);
   return resdata;
 };
 export const cancelApi = (id) => {
@@ -93,5 +94,21 @@ export const verifyApi = (id,data) => {
   const resdata = UserApi.post(`/verify-payment/${id}`,data);
   return resdata;
 };
-
+///messenger
+export const getConversationApi = (id) => {
+  const resdata = UserApi.get(`/conversation/${id}`,getToken);
+  return resdata;
+};
+export const messageApi = (message,id) => {
+  const resdata = UserApi.post(`/message/${id}`,message);
+  return resdata;
+};
+export const getmessageApi = (email) => {
+  const resdata = UserApi.get(`/message/${email}`,getToken);
+  return resdata;
+};
+export const getvendormessageApi = () => {
+  const resdata = UserApi.get(`/vendormessage`,getToken);
+  return resdata;
+};
 

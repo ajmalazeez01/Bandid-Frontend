@@ -1,12 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { bookingDetailFetchApi, buybandInCheckOut, verifyApi } from "../../Helpers/UserApi";
+import { Navigate, useParams } from "react-router-dom";
+import {
+  bookingDetailFetchApi,
+  buybandInCheckOut,
+  verifyApi,
+} from "../../Helpers/UserApi";
 import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useRazorpay from "react-razorpay";
-
 
 const BookingDetails = () => {
   const userEmail = useSelector((state) => state.user.email);
@@ -29,9 +32,7 @@ const BookingDetails = () => {
       });
   }, []);
 
-
-
-  const initPayment = async (data,detail, bookingDetails) => {
+  const initPayment = async (data, detail, bookingDetails) => {
     try {
       // console.log(bookingDetails, "!!!!!!!");
       const amount = data.order.amount;
@@ -45,19 +46,16 @@ const BookingDetails = () => {
 
         handler: async (response) => {
           console.log(response);
-
           try {
-            const { data } = await verifyApi(bandId,response,bookingDetails);
+            const { data } = await verifyApi(bandId, response, bookingDetails);
             console.log(data, "Response data");
-
-          //  setVerifiedOrderId(data.orderId)
-            // console.log(verifiedCourseId)
-            // toast.success("Order successfully placed", {
-            //   autoClose: 3000,
-            //   position: toast.POSITION.TOP_CENTER,
-            // });
-            // navigate(`/paymentSucess/${data.courseId}/${data.orderId}`);
-
+            if (response) {
+              toast.success("Order successfully placed", {
+                autoClose: 3000,
+                position: toast.POSITION.TOP_CENTER,
+              });
+              // Navigate('/user/')
+            }
           } catch (error) {
             toast.error(error.message);
           }
@@ -68,26 +66,21 @@ const BookingDetails = () => {
       };
 
       const rzp1 = new Razorpay(options);
-      
+
       rzp1.open();
     } catch (error) {
       console.log(error, "KKKKK");
     }
   };
 
-      
-
-
-
-
   const onSubmit = async (values) => {
     try {
       const bookingDetails = values;
       const { data } = await buybandInCheckOut(SlotDetail?._id);
       // console.log(data);
-      const detail = SlotDetail
+      const detail = SlotDetail;
       if (values) {
-        initPayment(data,detail, bookingDetails);
+        initPayment(data, detail, bookingDetails);
       } else {
         toast.error("Payment method temporarily unavailable");
       }
@@ -96,8 +89,6 @@ const BookingDetails = () => {
       toast.error(error.message);
     }
   };
-
-
 
   return (
     <div>
@@ -135,8 +126,9 @@ const BookingDetails = () => {
         <p className="py-1 text-white font-serif text-lg">
           <strong>Total Price : </strong> ₹{SlotDetail?.advprice}
         </p>
-        <button className="mb-3 text-white font-serif text-lg w-11/12 ml-3 mx-auto mt-4 rounded-md p-2.5  font-medium bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl"
-        onClick={onSubmit}
+        <button
+          className="mb-3 text-white font-serif text-lg w-11/12 ml-3 mx-auto mt-4 rounded-md p-2.5  font-medium bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl"
+          onClick={onSubmit}
         >
           Proceed to pay
         </button>

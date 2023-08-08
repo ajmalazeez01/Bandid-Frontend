@@ -1,4 +1,3 @@
-import { Form } from "react-hook-form";
 import BandApi from "../Config/BandBaseApi";
 
 const token = localStorage.getItem("vendor");
@@ -11,8 +10,8 @@ const getToken = {
   },
 };
 
-export const allLocationApi = (data) => {
-  const resData = BandApi.get("/all-location", data);
+export const allLocationApi = () => {
+  const resData = BandApi.get("/all-location");
   return resData;
 };
 export const BandSignupApi = (data) => {
@@ -34,10 +33,38 @@ export const BandDetailsApi = (email,formData) => {
   return resdata;
 };
 export const categoryApi = () => {
-  const resdata = BandApi.get("/category");
+  const resdata = BandApi.get("/category",getToken);
   return resdata;
 };
-export const getreviewApi = async()=>{
-  const resdata = await BandApi.get("/band-Review",getToken)
+export const getreviewApi = async(email)=>{
+  const resdata = await BandApi.get(`/band-Review/${email}`,getToken)
   return resdata
 }
+export const getBookingApi = async(userEmail, searchQuery, sortBy, sortOrder, currentPage, itemsPerPage)=>{
+  const resdata = await BandApi.get(`/band-booking?userEmail=${userEmail}&searchQuery=${searchQuery}&sortBy=${sortBy}&sortOrder=${sortOrder}&currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`,getToken)
+  return resdata
+}
+export const dashboardDetailsApi = (email) => {
+  const resdata = BandApi.get(`/dashbord-details/${email}`,getToken);
+  return resdata;
+};
+export const BookingdetailApi = async(id)=>{
+  const resdata = await BandApi.get(`/booking-fetch/${id}`,getToken)
+  return resdata
+}
+export const getConversationApi = (id) => {
+  const resdata = BandApi.get(`/conversation`,getToken);
+  return resdata;
+};
+export const messageApi = (message) => {
+  const resdata = BandApi.post(`/message`,message);
+  return resdata;
+};
+export const getmessageApi = (email) => {
+  const resdata = BandApi.get(`/message/${email}`,getToken);
+  return resdata;
+};
+export const getusermessageApi = () => {
+  const resdata = BandApi.get(`/usermessage`,getToken);
+  return resdata;
+};

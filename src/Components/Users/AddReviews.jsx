@@ -3,11 +3,12 @@ import { rateListApi } from "../../Helpers/UserApi";
 import { useSelector } from "react-redux";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 const MySwal = withReactContent(Swal);
 
 const AddReviews = () => {
-
+  const { id } = useParams();
+  console.log(id);
   const userEmail = useSelector((state) => state.user.email);
 
   const [detail, setDetail] = useState({
@@ -16,12 +17,12 @@ const AddReviews = () => {
   });
 
   const handleSubmit = () => {
-    rateListApi(userEmail,detail).then((response) => {
+    rateListApi(userEmail, id, detail).then((response) => {
       if (response.data.message) {
         MySwal.fire({
           icon: "success",
           title: "Thank You for your Feedback🤗!",
-          text: ``,
+          text: "",
         });
         window.history.back();
       }
@@ -39,45 +40,45 @@ const AddReviews = () => {
 
         <div className="w-full sm:w-[40rem] my-32 mb-6 bg-gray-900 rounded-lg mx-auto border-2">
           <div className="bg-yellow-100 w-full sm:w-[35rem] mx-auto my-10 rounded-lg">
-            <div className="w-full sm:w-96 mx-auto py-8">
-              <div>
-                <label className="block mb-2 text-sm font-medium text-black dark:text-black">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={detail.name}
-                  onChange={(e) =>
-                  setDetail({ ...detail, name: e.target.value })
-                  }
-                  placeholder="Name"
-                  required
-                />
+            {/* <form> */}
+              <div className="w-full sm:w-96 mx-auto py-8">
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black dark:text-black">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={detail.name}
+                    onChange={(e) =>
+                      setDetail({ ...detail, name: e.target.value })
+                    }
+                    placeholder="Name"
+                  />
+                </div>
+                <div className="mt-4">
+                  <label className="block mb-2 text-sm font-medium text-black dark:text-black">
+                    Message
+                  </label>
+                  <textarea
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-32 resize-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={detail.message}
+                    onChange={(e) =>
+                      setDetail({ ...detail, message: e.target.value })
+                    }
+                    placeholder="Write a message"
+                  />
+                </div>
+                <div className="mt-6">
+                  <button
+                    className="px-4 py-2 text-white rounded-lg bg-blue-500 hover:bg-blue-600"
+                    onClick={handleSubmit}
+                  >
+                    Send Message
+                  </button>
+                </div>
               </div>
-              <div className="mt-4">
-                <label className="block mb-2 text-sm font-medium text-black dark:text-black">
-                  Message
-                </label>
-                <textarea
-                  className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-32 resize-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value={detail.message}
-                  onChange={(e) =>
-                  setDetail({ ...detail, message: e.target.value })
-                  }
-                  placeholder="Write a message"
-                  required
-                />
-              </div>
-              <div className="mt-6">
-                <button
-                  className="px-4 py-2 text-white rounded-lg bg-blue-500 hover:bg-blue-600"
-                  onClick={handleSubmit}
-                >
-                  Send Message
-                </button>
-              </div>
-            </div>
+            {/* </form> */}
           </div>
         </div>
       </div>

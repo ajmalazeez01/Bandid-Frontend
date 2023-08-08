@@ -8,6 +8,8 @@ import Dashboards from '../Pages/BandPortal/Dashboards'
 import BandDetails from '../Pages/BandPortal/BandDetails'
 import BandBookings from '../Pages/BandPortal/BandBookings'
 import BandReviews from '../Pages/BandPortal/BandReviews'
+import Error from '../Pages/error'
+import VendorMessage from '../Pages/Message/vendorMessage'
 
 const BandRoute = () => {
   return (
@@ -16,10 +18,12 @@ const BandRoute = () => {
       <Routes>
                 <Route path = "/signup" element = {<Signup/>} />
                 <Route path = "/login" element = {<LoginForm/>} />
+                <Route path = "*" element = {<Error/>}   />
 
                 <Route
                 element={<ProtectedRoute type={"vendor"} redirect={"/band/login"} />}
                 >
+                <Route path = "message" element = {<VendorMessage/>} />
 
                 <Route path = "/" element = {<BandLayouts/>}>
                 <Route path = "dashboard" element = {<Dashboards/>} />

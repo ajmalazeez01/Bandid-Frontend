@@ -1,51 +1,24 @@
-//  export default function Pagination({ currentPage, itemsPerPage, totalItems, onPageChange }) {
-//     const totalPages = Math.ceil(totalItems / itemsPerPage);
-  
-//     const handlePrevClick = () => {
-//       if (currentPage > 1) {
-//         onPageChange(currentPage - 1);
-//       }
-//     };
-  
-//     const handleNextClick = () => {
-//       if (currentPage < totalPages) {
-//         onPageChange(currentPage + 1);
-//       }
-//     };
-  
-//     return (
-//       <nav aria-label="Pagination">
-//         <ul className="flex items-center space-x-4">
-//           <li>
-//             <button
-//               onClick={handlePrevClick}
-//               disabled={currentPage === 1}
-//               className={`px-2 py-1 rounded ${
-//                 currentPage === 1 ? 'bg-gray-300 cursor-default' : 'bg-blue-600 hover:bg-blue-700'
-//               } text-white`}
-//             >
-//               Previous
-//             </button>
-//           </li>
-//           <li>
-//             <span className="text-gray-600">
-//               Page {currentPage} of {totalPages}
-//             </span>
-//           </li>
-//           <li>
-//             <button
-//               onClick={handleNextClick}
-//               disabled={currentPage === totalPages}
-//               className={`px-2 py-1 rounded ${
-//                 currentPage === totalPages ? 'bg-gray-300 cursor-default' : 'bg-blue-600 hover:bg-blue-700'
-//               } text-white`}
-//             >
-//               Next
-//             </button>
-//           </li>
-//         </ul>
-//       </nav>
-//     );
-//   }
- 
-  
+import React from "react";
+
+const Pagination = ({ currentPage, totalPages, handlePrevious, handleNext }) => {
+  return (
+    <div className="flex justify-center mt-4">
+      <button
+        onClick={handlePrevious}
+        disabled={currentPage === 1}
+        className="px-4 py-2 bg-blue-500 text-white rounded-md font-semibold mr-2"
+      >
+        Previous
+      </button>
+      <button
+        onClick={handleNext}
+        disabled={currentPage === totalPages}
+        className="px-4 py-2 bg-blue-500 text-white rounded-md font-semibold ml-2"
+      >
+        Next
+      </button>
+    </div>
+  );
+};
+
+export default Pagination;

@@ -52,16 +52,16 @@ export const blockLocationApi = async(id)=>{
     const resdata = await AdminApi.patch(`/block-location?id=${id}`)
     return resdata
 }
-export const getUserApi = async()=>{
-    const resdata = await AdminApi.get("/userManage",getToken)
+export const getUserApi = async( searchQuery, sortBy, sortOrder, currentPage, itemsPerPage)=>{
+    const resdata = await AdminApi.get(`/userManage?searchQuery=${searchQuery}&sortBy=${sortBy}&sortOrder=${sortOrder}&currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`,getToken)
     return resdata
 }
 export const blockUserApi=async(id)=>{
     const resData=await AdminApi.patch(`/block-user/${id}`)
     return resData
 }
-export const getbandApi = async()=>{
-    const resdata = await AdminApi.get("/bandManage",getToken)
+export const getbandApi = async(searchQuery, sortBy, sortOrder, currentPage, itemsPerPage)=>{
+    const resdata = await AdminApi.get(`/bandManage?searchQuery=${searchQuery}&sortBy=${sortBy}&sortOrder=${sortOrder}&currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`,getToken)
     return resdata
 }
 export const blockbandApi=async(id)=>{
@@ -69,8 +69,8 @@ export const blockbandApi=async(id)=>{
     const resData=await AdminApi.patch(`/block-band/${id}`)
     return resData
 }
-export const getverifyApi = async()=>{
-    const resdata = await AdminApi.get("/band-verify",getToken)
+export const getverifyApi = async(searchQuery, sortBy, sortOrder, currentPage, itemsPerPage)=>{
+    const resdata = await AdminApi.get(`/band-verify?searchQuery=${searchQuery}&sortBy=${sortBy}&sortOrder=${sortOrder}&currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`,getToken)
     return resdata
 }
 export const blockVerifyApi=async(id)=>{
@@ -78,3 +78,7 @@ export const blockVerifyApi=async(id)=>{
     const resData=await AdminApi.patch(`/block-verify/${id}`)
     return resData
 }
+export const dashboardDetailsApi = () => {
+    const resdata = AdminApi.get(`/dashbord-details`);
+    return resdata;
+  };

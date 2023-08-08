@@ -198,6 +198,9 @@ const LocationAndBand = (e) => {
               <thead>
                 <tr>
                   <th className="bg-slate-500 text-xl  dark:text-white">
+                    No:
+                  </th>
+                  <th className="bg-slate-500 text-xl  dark:text-white">
                     Band
                   </th>
                   <th className="bg-slate-500 text-xl  dark:text-white">Edit</th>
@@ -207,11 +210,14 @@ const LocationAndBand = (e) => {
               </thead>
 
               <tbody>
-                {band?.map((value) => {
+                {band?.map((value,index) => {
                   // console.log(value);
                   return (
                     <tr>
                       {/* key={value._id} */}
+                      <td className="text-gray-900 text-lg  dark:text-white ml-2 px-6">
+                        {index+1}
+                      </td>
                       <td className="text-gray-900 text-lg  dark:text-white ml-2 px-6">
                         {value.name}
                       </td>
@@ -281,6 +287,9 @@ const LocationAndBand = (e) => {
               <thead>
                 <tr>
                   <th className="bg-slate-500 text-xl  dark:text-white">
+                    No:
+                  </th>
+                  <th className="bg-slate-500 text-xl  dark:text-white">
                     Location
                   </th>
                   <th className="bg-slate-500 text-xl  dark:text-white">Edit</th>
@@ -290,10 +299,13 @@ const LocationAndBand = (e) => {
               </thead>
 
               <tbody>
-                {location?.map((value) => {
+                {location?.map((value,index) => {
                   return (
                     <tr>
                       {/* key={value._id} */}
+                      <td className="text-gray-900 text-lg  dark:text-white ml-2 px-6">
+                        {index+1}
+                      </td>
                       <td className="text-gray-900 text-lg  dark:text-white ml-2 px-6">
                         {value.name}
                       </td>

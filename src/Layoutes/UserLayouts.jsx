@@ -44,7 +44,7 @@ const UserLayouts = () => {
         <nav className="w-full h-16 bg-black">
           <div className="flex items-center py-3 pl-3">
             <img className="w-12 mr-2" src="/Images/logostar.png" />
-            <NavLink to="home">
+            <NavLink to="/">
               <div>
                 <h1 className="text-white text-2xl font-bold">Bandid</h1>
               </div>

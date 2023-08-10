@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const USER_BASE_URL= `http://localhost:8000/admin`
+const USER_BASE_URL= `https://api.bandid.site/admin`
 
 const AdminApi =axios.create({
     baseURL:USER_BASE_URL

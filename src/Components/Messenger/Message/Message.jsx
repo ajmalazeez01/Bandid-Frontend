@@ -9,7 +9,7 @@ import { getmessageApi, getvendormessageApi } from "../../../Helpers/UserApi";
 
 const Message = () => {
   const email = useSelector((state) => state.user.email);
-  const { id } = useParams();
+  console.log(email);
 
   const [message, setMessage] = useState();
   const [vendoressage, setvendorMessage] = useState();
@@ -32,11 +32,12 @@ const Message = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [message]);
+  }, []);
 
   return (
     <div>
       <div>
+      
         {vendoressage?.map((vendorMessage, vendorIndex) => (
           <div className="messages" key={vendorIndex}>
             <div className="messageTops">

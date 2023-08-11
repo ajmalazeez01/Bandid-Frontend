@@ -34,7 +34,7 @@ const UserRoute = () => {
 
                 <Route path = "/" element = {<UserLayouts/>}>
 
-                <Route path = "/" element = {<HomePages/>} />
+                <Route path = "/home" element = {<HomePages/>} />
                 <Route path = "/list/:name/" element = {<ListPage/>} />
                 <Route path = "/band-detail/:id" element = {<BandDetail/>} />
                 <Route path = "/message/:id" element = {<Messages/>}   />

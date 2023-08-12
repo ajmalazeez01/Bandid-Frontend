@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { bandDetailApi } from "../../Helpers/UserApi";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { bandDetailApi } from "../../Helpers/UserApi";
 import { NavLink } from "react-router-dom";
 import Loader from "../../Helpers/Loader";
 
@@ -12,8 +12,8 @@ const HomePage = () => {
   useEffect(() => {
     bandDetailApi()
       .then((res) => {
-        setLoading(false);
         setDetail(res.data.message);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -25,44 +25,42 @@ const HomePage = () => {
       {loading ? (
         <Loader />
       ) : (
-        
         <div className="bg-black">
-          <div className="w-11/12 h-72 bg-gray-400 mx-auto rounded-xl">
+          <div className="w-11/12 h-72 mx-auto">
             <Carousel
               autoPlay
               infiniteLoop
               showStatus={false}
               showIndicators={false}
               showThumbs={false}
-              className="mx-auto w-11/12 h-72"
+              className="w-12/12 h-72 rounded"
             >
-              {/* Add your carousel items here */}
               <div>
                 <img
-                  // src="/Images/istockphoto-881745120-612x612.jpg"
-                  alt="Carousel Image 1"
-                  style={{ width: "100%", height: "20%" }}
+                  className="rounded-xl"
+                  src="/Images/wes-hicks-MEL-jJnm7RQ-unsplash.jpg"
+                  alt="Image 1"
+                  style={{ width: "100%", height: "100%" }} // Set images to fit the div size
                 />
               </div>
               <div>
                 <img
-                  src="/Images/carousel-image2.jpg"
-                  alt="Carousel Image 2"
-                  style={{ width: "100%", height: "%" }}
+                  className="rounded-xl"
+                  src="/Images/hector-bermudez-iIWDt0fXa84-unsplash.jpg"
+                  alt="Image 2"
+                  style={{ width: "100%", height: "100%" }} // Set images to fit the div size
                 />
               </div>
               <div>
                 <img
-                  src="/Images/carousel-image3.jpg"
-                  alt="Carousel Image 3"
-                  style={{ width: "100%", height: "100%" }}
+                  className="rounded-xl"
+                  src="/Images/maaria-lohiya-LhWr3yGGC6k-unsplash.jpg"
+                  alt="Image 3"
+                  style={{ width: "100%", height: "100%" }} // Set images to fit the div size
                 />
               </div>
             </Carousel>
           </div>
-
-
-        
 
           <div className="container mx-auto px-4 mt-8 mb-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 ">

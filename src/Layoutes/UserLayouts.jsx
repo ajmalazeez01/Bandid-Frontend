@@ -19,7 +19,6 @@ const UserLayouts = () => {
 
   useEffect(() => {
     categoryApi().then((res) => {
-      // console.log(id);
       setCategory(res.data.message);
       // console.log(res.data.message);
     });

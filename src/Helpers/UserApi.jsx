@@ -24,7 +24,6 @@ export const categoryListApi = (location) => {
   return resdata;
 };
 export const categoryDetailApi = (name) => {
-  console.log(name);
   const resdata = UserApi.get(`/band-detail/${name}`,getToken);
   return resdata;
 };
@@ -41,7 +40,7 @@ export const userloginApi = (data) => {
   return resData;
 };
 export const bandDetailApi = () => {
-  const resData = UserApi.get("/band-detail", getToken);
+  const resData = UserApi.get("/band-detail",getToken);
   return resData;
 };
 export const checkLocationApi = (location,band) => {

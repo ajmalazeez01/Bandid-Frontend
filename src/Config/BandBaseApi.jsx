@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const USER_BASE_URL= `http://bandid.site/api/band`
+const USER_BASE_URL= `https://bandid.site/api/band`
+// const USER_BASE_URL= `http://localhost:5000/api/band`
 
 const BandApi =axios.create({
     baseURL:USER_BASE_URL

@@ -3,13 +3,10 @@ import { bandDetailApi, categoryApi, SearchApi } from "../Helpers/UserApi";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Navigate, NavLink, Link } from "react-router-dom";
-import Loader from "../Helpers/Loader";
-import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 
 const Home = () => {
   const [detail, setDetail] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [Toggle, setToggle] = useState(false);
   const [Toggles, setToggles] = useState(false);
   const [category, setCategory] = useState([]);
@@ -21,7 +18,6 @@ const Home = () => {
     bandDetailApi()
       .then((res) => {
         setDetail(res.data.message);
-        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -69,9 +65,7 @@ const Home = () => {
 
   return (
     <div>
-      {loading ? (
-        <Loader />
-      ) : (
+      
         <div className="bg-black">
           <nav className="w-full h-16 bg-black">
             <ToastContainer />
@@ -406,7 +400,6 @@ const Home = () => {
             </div>
           </footer>
         </div>
-      )}
     </div>
   );
 };

@@ -11,15 +11,12 @@ const Conversation = () => {
   useEffect(() => {
     getConversationApi(id)
       .then((res) => {
-        // setLoading(false);
-        // console.log(res.data.message);
         setConversation(res.data.message);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-  // console.log(conversation);
 
   return (
     <div className="conversation" key={conversation?.id}>

@@ -11,11 +11,10 @@ const getToken = {
 };
 
 export const categoryApi = () => {
-  const resdata = UserApi.get("/category",getToken);
+  const resdata = UserApi.get("/category");
   return resdata;
 };
 export const SearchApi = (data) => {
-  console.log(data);
   const resdata = UserApi.post("/search",data);
   return resdata;
 };
@@ -40,7 +39,7 @@ export const userloginApi = (data) => {
   return resData;
 };
 export const bandDetailApi = () => {
-  const resData = UserApi.get("/band-detail",getToken);
+  const resData = UserApi.get("/band-detail");
   return resData;
 };
 export const checkLocationApi = (location,band) => {

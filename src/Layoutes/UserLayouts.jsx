@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { SearchApi, categoryApi } from "../Helpers/UserApi";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserId } from "../Store/Slices/UserIdSlice";
-import HomePage from "../Components/Users/HomePage";
 
 const UserLayouts = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
   const userName = useSelector((state) => state.user.name);
 
   const [Toggle, setToggle] = useState(false);
